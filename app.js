@@ -9,16 +9,20 @@ const mainTable = document.querySelector(".expenseTable");
 
 const totalExpenses = document.querySelector(".expenses--prices");
 const totalBudgets = document.querySelector(".budgets--prices");
+let gelirler = 0;
+let expenseArray=[]
 
 formGelir.addEventListener("submit", (e) => {
   e.preventDefault();
+  gelirler = gelirler + Number(incomeValue.value);
 
-  totalIncome.innerHTML = (+totalIncome.innerHTML + +incomeValue.value).toFixed(
-    2
-  );
+  localStorage.setItem("gelirler", gelirler);
+  formGelir.reset();
   calculateExpense();
-
-  incomeValue.value = "";
+});
+window.addEventListener("load", () => {
+  gelirler = Number(localStorage.getItem("gelirler"));
+  calculateExpense()
 });
 
 formGider.addEventListener("submit", (e) => {
@@ -53,13 +57,17 @@ formGider.addEventListener("submit", (e) => {
     alert("Lütfen verilen alanları doldurunuz!");
   }
 });
+let giderler = 0;
+let kalan = 0;
 
 const calculateExpense = () => {
-  totalExpenses.textContent = (
-    Number(totalExpenses.textContent) + Number(expenseValue.value)
-  ).toFixed(2);
-  kalan = Number(totalIncome.textContent) - Number(totalExpenses.textContent);
-  totalBudgets.textContent = kalan.toFixed(2);
+  totalIncome.textContent = gelirler;
+
+  giderler += Number(expenseValue.value);
+
+  totalExpenses.textContent = giderler;
+  kalan = gelirler - giderler;
+  totalBudgets.textContent = kalan;
 };
 
 document.querySelector(".clear").addEventListener("click", (e) => {
@@ -67,6 +75,9 @@ document.querySelector(".clear").addEventListener("click", (e) => {
   e.target.parentNode.querySelector(
     ".expenseTable"
   ).lastElementChild.innerHTML = "";
+  gelirler = 0;
+
+  localStorage.clear();
 
   totalBudgets.textContent = "0.00";
   totalExpenses.textContent = "0.00";
@@ -76,5 +87,9 @@ document.querySelector(".clear").addEventListener("click", (e) => {
 mainTable.addEventListener("click", (e) => {
   if ((e.target.className = "erase")) {
     e.target.parentNode.remove();
+    giderler = giderler - Number(e.target.previousElementSibling.textContent);
+    kalan = gelirler - giderler;
+
+    calculateExpense();
   }
 });
