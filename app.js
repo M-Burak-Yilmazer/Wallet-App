@@ -10,7 +10,7 @@ const mainTable = document.querySelector(".expenseTable");
 const totalExpenses = document.querySelector(".expenses--prices");
 const totalBudgets = document.querySelector(".budgets--prices");
 let gelirler = 0;
-let expenseArray=[]
+let expenseArray = [];
 
 formGelir.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -22,12 +22,18 @@ formGelir.addEventListener("submit", (e) => {
 });
 window.addEventListener("load", () => {
   gelirler = Number(localStorage.getItem("gelirler"));
-  calculateExpense()
+  calculateExpense();
+  expenseArray = 
+    JSON.parse(localStorage.getItem("expenses")) || [];
+    
+
 });
 
 formGider.addEventListener("submit", (e) => {
   e.preventDefault();
   if (expenseArea.value && expenseValue.value) {
+
+    
     const newRow = document.createElement("tr");
     const expenseDate = document.createElement("td");
     const expenseAlani = document.createElement("td");
@@ -48,11 +54,17 @@ formGider.addEventListener("submit", (e) => {
     newRow.appendChild(expenseCount);
     newRow.appendChild(expenseProcess);
 
+    const newHarcama = {
+      date: date.value || `${new Date().toISOString().slice(0, 10)}`,
+      alan: expenseArea.value,
+      count: expenseValue.value,
+    };
+    expenseArray.push(newHarcama);
+    localStorage.setItem("expenses", JSON.stringify(expenseArray));
+
     calculateExpense();
 
-    date.value = "";
-    expenseArea.value = "";
-    expenseValue.value = "";
+    formGider.reset();
   } else {
     alert("Lütfen verilen alanları doldurunuz!");
   }
