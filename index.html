@@ -16,14 +16,14 @@
       <h1 class="display-3 text-warning">My Wallet App 💳</h1>
     </header>
 
-    <form class="container mb-3 pb-2 pt-2 border rounded">
+    <form class="container expense-form mb-3 pb-2 pt-2 border rounded">
       <h3 class="h3 text-center">Harcama Formu</h3>
       <div class="row">
         <div class="mb-3 col-6">
           <label for="exampleInputEmail1" class="form-label">Tarih</label>
           <input
             type="date"
-            class="form-control"
+            class="form-control date"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
           />
@@ -33,6 +33,7 @@
             >Harcama Miktarı</label
           >
           <input
+          id="expense"
             type="number"
             placeholder="1000  Tl"
             class="form-control"
@@ -44,7 +45,7 @@
         <label for="exampleInputPassword1" class="form-label">Harcama Alanı</label>
         <input
           type="text"
-          class="form-control"
+          class="area form-control"
           placeholder="Kira, Fatura, Kredi Kartı"
           id="exampleInputPassword1"
         />
@@ -67,7 +68,7 @@
     </form>
 
     <div class="container mt-3">
-      <table class="table table-sm table-bordered table-striped text-center">
+      <table class="table expenseTable table-sm table-bordered table-striped text-center">
         <thead>
           <tr>
             <th scope="col">Tarih</th>
@@ -77,12 +78,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
+          
         </tbody>
       </table>
     </div>
@@ -92,15 +88,15 @@
         <tbody>
           <tr>
             <th class="incomes">Geliriniz (tl)</th>
-            <td>0.00</td>
+            <td class="incomes--prices">0.00</td>
           </tr>
           <tr>
             <th class="expenses">Gideriniz (tl)</th>
-            <td>0.00</td>
+            <td class="expenses--prices">0.00</td>
           </tr>
           <tr>
-            <th class="">Kalan(tl)</th>
-            <td>0.00</td>
+            <th class="budgets">Kalan(tl)</th>
+            <td class="budgets--prices">0.00</td>
           </tr>
         </tbody>
       </table>
@@ -109,7 +105,7 @@
     <button
       type="submit"
       style="width: 200px"
-      class="btn d-block mb-3 m-auto btn-secondary col-1"
+      class="clear btn d-block mb-3 m-auto btn-secondary col-1"
     >
       Bilgileri Temizle
     </button>
