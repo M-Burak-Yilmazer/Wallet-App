@@ -36,6 +36,7 @@ formGider.addEventListener("submit", (e) => {
     expenseCount.textContent = expenseValue.value;
     expenseProcess.textContent = "🗑️";
     expenseProcess.classList.add = "erase";
+    expenseProcess.style.cursor = "pointer";
 
     mainTable.lastElementChild.appendChild(newRow);
     newRow.appendChild(expenseDate);
@@ -73,7 +74,7 @@ document.querySelector(".clear").addEventListener("click", (e) => {
 });
 
 mainTable.addEventListener("click", (e) => {
-  if (e.target.classList.contains("erase")) {
+  if ((e.target.className = "erase")) {
     e.target.parentNode.remove();
   }
 });
